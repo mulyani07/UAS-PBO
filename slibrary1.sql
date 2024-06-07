@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Jun 2024 pada 05.14
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Waktu pembuatan: 07 Jun 2024 pada 18.49
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -152,6 +152,22 @@ CREATE TABLE `publisher` (
 INSERT INTO `publisher` (`id`, `name`, `address`, `phone`) VALUES
 (4, 'Gramedia', 'Tunjungan', 12345);
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `returnbook`
+--
+
+CREATE TABLE `returnbook` (
+  `id` int(11) NOT NULL,
+  `mid` int(11) NOT NULL,
+  `mname` varchar(255) NOT NULL,
+  `bname` varchar(255) NOT NULL,
+  `returndate` varchar(255) NOT NULL,
+  `elp` int(11) NOT NULL,
+  `fine` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -190,6 +206,12 @@ ALTER TABLE `member`
 -- Indeks untuk tabel `publisher`
 --
 ALTER TABLE `publisher`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `returnbook`
+--
+ALTER TABLE `returnbook`
   ADD PRIMARY KEY (`id`);
 
 --
