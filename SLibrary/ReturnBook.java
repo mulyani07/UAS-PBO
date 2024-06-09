@@ -400,10 +400,97 @@ public class ReturnBook extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel d1 = (DefaultTableModel)jTable1.getModel();
+        int selectIndex = jTable1.getSelectedRow();
+        
+        int id = Integer.parseInt(d1.getValueAt(selectIndex, 0).toString());
+
+        String mid = txtmid.getText();
+        String membername = txtmname.getText();
+        String bookname = txtbook.getText();
+        String returndate = txtrdate.getText();
+        String elpdays = txtelp.getText();
+        String fine = txtfine.getText();
+
+        try {
+            pst = con.prepareStatement("update returnbook set mid = ?, mname = ?, bname = ?, returndate = ?, elp = ?, fine = ? where id = ?");
+            pst.setString(1, mid);
+            pst.setString(2, membername);
+            pst.setString(3, bookname);
+            pst.setString(4, returndate);
+            pst.setString(5, elpdays);
+            pst.setString(6, fine);
+            pst.setString(7, id);
+      
+            int k = pst.executeUpdate();
+            
+            pst = con.prepareStatement("delete from lendbook where memberid = ?");
+            pst.setString(1, mid);
+            pst.executeUpdate();
+
+            
+            if(k== 1)
+            {
+                JOptionPane.showMessageDialog(this, "Book Return Updated");
+
+                txtmid.setText("");
+                txtmname.setText("");
+                txtbook.setText("");
+                txtrdate.setText("");
+                txtelp.setText("");
+                txtfine.setText("");
+                txtmid.requestFocus();
+                jButton1.setEnabled(true);
+                Return_Load();
+                
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this,"Return  Error");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Book.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+
+        DefaultTableModel d1 = (DefaultTableModel)jTable1.getModel();
+        int selectIndex = jTable1.getSelectedRow();
+        
+        int id = Integer.parseInt(d1.getValueAt(selectIndex, 0).toString());
+       
+        try {
+            pst = con.prepareStatement("delete from ReturnBook where id = ?");
+         
+            pst.setInt(1, id);
+            int k = pst.executeUpdate();
+            
+            if(k== 1)
+            {
+                JOptionPane.showMessageDialog(this,"ReturnBook Deleted");
+                
+                txtmid.setText("");
+                txtmname.setText("");
+                txtbook.setText("");
+                txtrdate.setText("");
+                txtelp.setText("");
+                txtfine.setText("");
+                txtmid.requestFocus();
+                jButton1.setEnabled(true);
+                Return_Load();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this,"ReturnBook Error");
+            }
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
